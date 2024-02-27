@@ -1,6 +1,7 @@
 #include <iostream>
 
 constexpr unsigned int STUDENT_NAME = 16;
+constexpr unsigned int MAJOR_NAME = 16;
 
 enum class Major
 {
@@ -52,7 +53,34 @@ bool strAreEqual(char* str1, const char* str2)
     return true;
 }
 
+Major readMajor()
+{
+    Major major;
+    char input[MAJOR_NAME];
+    std::cin >> input;
 
+    if (strAreEqual(input, "SI"))
+        major = Major::SI;
+    else if (strAreEqual(input, "IS"))
+        major = Major::IS;
+    else if (strAreEqual(input, "KN"))
+        major = Major::KN;
+    else if (strAreEqual(input, "INF"))
+        major = Major::INF;
+    else if (strAreEqual(input, "MI"))
+        major = Major::MI;
+    else if (strAreEqual(input, "PM"))
+        major = Major::PM;
+    else if (strAreEqual(input, "AD"))
+        major = Major::AD;
+    else
+    {
+        std::cout << "Invalid major!";
+        return;
+    }
+
+    return major;
+}
 
 void readStudent(Student& student)
 {
@@ -66,27 +94,19 @@ void readStudent(Student& student)
         return;
     }
     student.fn = facultyNumber;
-    std::cin >> major;
+    student.major = readMajor();
+}
 
-    if (strAreEqual(major, "SI"))
-        student.major = Major::SI;
-    else if (strAreEqual(major, "IS"))
-        student.major = Major::IS;
-    else if (strAreEqual(major, "KN"))
-        student.major = Major::KN;
-    else if (strAreEqual(major, "INF"))
-        student.major = Major::INF;
-    else if (strAreEqual(major, "MI"))
-        student.major = Major::MI;
-    else if (strAreEqual(major, "PM"))
-        student.major = Major::PM;
-    else if (strAreEqual(major, "AD"))
-        student.major = Major::AD;
-    else
+int countOfStudentFromMajor(const Course course, Major major, Student* students)
+{
+    int count = 0;
+    for (size_t i = 0; i < course.studentsCount; i++)
     {
-        std::cout << "Invalid major!";
-        return;
+        if (course.students[i].major == major)
+            students[count++] = course.students[i]; //adds the student to the array of students from a given major and increments count;
     }
+
+    return count;
 }
 
 int main()
@@ -106,5 +126,11 @@ int main()
     Course course;
     course.students = students;
     course.studentsCount = n;
+
+    Major major = readMajor();
+    Student* studentsFromMajor = new Student[course.studentsCount]; // not more than the students in the course
+
+    delete[] students;
+    delete[] studentsFromMajor;
 }
 
