@@ -48,15 +48,16 @@ Color findColorByName(const char* name, const char* filePath)
 
 	int size = colorshoInFile(filePath);
 	Color* colors = new Color[size];
-	inFile.read((char*)colors, size);
+	inFile.read((char*)colors, getFileSize(inFile));
 
 	for (size_t i = 0; i < size; i++)
 	{
 		if (strcmp(name, colors[i].name) == 0)
 		{
 			inFile.close();
+			Color toReturn = colors[i];
 			delete[] colors;
-			return colors[i];
+			return toReturn;
 		}
 	}
 
@@ -86,7 +87,7 @@ void readColors(Color* colors, int size)
 
 void writeToFile(const char* fileName, const Color* colors, int size)
 {
-	if (!colors || fileName)
+	if (!colors || !fileName)
 		return;
 
 	std::ofstream outFile(fileName, std::ios::app | std::ios::binary);
@@ -113,8 +114,7 @@ int main()
 	Color* colors = new Color[n];
 	readColors(colors, n);
 
-	std::cin >> fileName;
-	writeToFile(fileName, colors, n);
+	writeToFile("text.txt", colors, n);
 
 	char colorName[Constants::FILE_MAX_NAME];
 	std::cin >> colorName;

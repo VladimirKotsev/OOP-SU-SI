@@ -98,7 +98,7 @@ bool findOffer(const char* filePath, const char* name)
     if (!inFile.is_open())
         return false;
 
-    size_t size = getFileSize(inFile);
+    size_t size = getFileSize(inFile) / sizeof(Advertisement);
     Advertisement* ads = new Advertisement[size];
     inFile.read((char*)ads, getFileSize(inFile));
 
