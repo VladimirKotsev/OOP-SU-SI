@@ -105,9 +105,15 @@ bool findOffer(const char* filePath, const char* name)
     for (size_t i = 0; i < size; i++)
     {
         if (strcmp(ads[i].companyName, name))
+        {
+            inFile.close();
+            delete[] ads;
             return true;
+        }
     }
 
+    inFile.close();
+    delete[] ads;
     return false;
 }
 

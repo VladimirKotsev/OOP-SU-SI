@@ -38,6 +38,9 @@ size_t colorshoInFile(const char* filePath)
 
 Color findColorByName(const char* name, const char* filePath)
 {
+	if(!name || !filePath)
+		return {"Error", -1};
+
 	std::ifstream inFile(filePath);
 	if (!inFile.is_open())
 		return {"ERROR", -1 };
@@ -71,15 +74,19 @@ Color readColor()
 
 void readColors(Color* colors, int size)
 {
+	if (!colors)
+		return;
+
 	for (size_t i = 0; i < size; i++)
 		colors[i] = readColor();
 }
 
 void writeToFile(const char* fileName, const Color* colors, int size)
 {
-	std::ofstream outFile(fileName, std::ios::app | std::ios::binary);
-	if (!colors)
+	if (!colors || fileName)
 		return;
+
+	std::ofstream outFile(fileName, std::ios::app | std::ios::binary);
 
 	if (!outFile.is_open())
 		return;
