@@ -54,11 +54,13 @@ Color findColorByName(const char* name, const char* filePath)
 		if (strcmp(name, colors[i].name) == 0)
 		{
 			inFile.close();
+			delete[] colors;
 			return colors[i];
 		}
 	}
 
 	inFile.close();
+	delete[] colors;
 	return { "ERROR", -1 };
 }
 
