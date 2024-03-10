@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include "P03.h"
 
 namespace Constants
 {
@@ -15,13 +14,15 @@ struct Advertisement
     int salary;
 };
 
-size_t getFileSize(std::ifstream& inFile)
+size_t getFileSize(std::ifstream& file)
 {
-    if (!inFile.is_open())
-        return 0;
+    size_t currentPos = file.tellg();
 
-    inFile.seekg(0, std::ios::end);
-    return inFile.tellg();
+    file.seekg(0, std::ios::end);
+    size_t size = file.tellg();
+
+    file.seekg(currentPos);
+    return size;
 }
 
 void printAdvertisement(const Advertisement ad)
@@ -34,6 +35,9 @@ void printAdvertisement(const Advertisement ad)
 
 void printAllFilteredAdvertisements(const Advertisement* ads, int size, size_t minSalary)
 {
+    if (!ads)
+        return;
+
     for (size_t i = 0; i < size; i++)
     {
         if (ads[i].salary > minSalary)
@@ -58,12 +62,20 @@ Advertisement readAdvertisement()
 
 void readAdvertisements(Advertisement* ads, int size)
 {
+    if (!ads)
+        return;
+    
     for (size_t i = 0; i < size; i++)
+    {
         ads[i] = readAdvertisement();
+    }
 }
 
 void filterOffer(const char* filePath, size_t minSalary) // cout all advertisments above minSalary
 {
+    if (!filePath)
+        return;
+
     std::ifstream inFile(filePath, std::ios::binary);
     if (!inFile.is_open())
         return;
@@ -79,11 +91,14 @@ void filterOffer(const char* filePath, size_t minSalary) // cout all advertismen
 
 bool findOffer(const char* filePath, const char* name)
 {
+    if (!filePath || !name)
+        return false;
+
     std::ifstream inFile(filePath, std::ios::binary);
     if (!inFile.is_open())
         return false;
 
-    size_t size = getFileSize(inFile) / sizeof(Advertisement);
+    size_t size = getFileSize(inFile);
     Advertisement* ads = new Advertisement[size];
     inFile.read((char*)ads, getFileSize(inFile));
 
@@ -98,7 +113,7 @@ bool findOffer(const char* filePath, const char* name)
 
 void writeToFile(const char* fileName, const Advertisement* ads, int size)
 {
-    if (!ads)
+    if (!ads || !fileName)
         return;
 
     std::ofstream outFile(fileName, std::ios::binary | std::ios::app);
