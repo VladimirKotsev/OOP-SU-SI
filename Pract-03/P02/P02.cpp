@@ -15,14 +15,15 @@ struct Color
 	int code;
 };
 
-size_t getFileSize(std::ifstream& ifs)
+size_t getFileSize(std::ifstream& file)
 {
-	if (!ifs.is_open())
-		return 0;
+	size_t currentPos = file.tellg();
 
-	ifs.seekg(0, std::ios::end);
-	size_t fileSize = ifs.tellg();
-	return fileSize;
+	file.seekg(0, std::ios::end);
+	size_t size = file.tellg();
+
+	file.seekg(currentPos);
+	return size;
 }
 
 size_t colorshoInFile(const char* filePath)
