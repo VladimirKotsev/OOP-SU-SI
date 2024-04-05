@@ -31,12 +31,7 @@ ThreeMultiSet::ThreeMultiSet(unsigned maxElement)
 }
 ThreeMultiSet::ThreeMultiSet(const ThreeMultiSet& other)
 {
-	this->maxElement = other.maxElement;
-
-	if (&other != this)
-	{
-		this->copyFrom(other);
-	}
+	this->copyFrom(other);
 }
 ThreeMultiSet& ThreeMultiSet::operator=(const ThreeMultiSet& other)
 {
@@ -66,12 +61,11 @@ int ThreeMultiSet::count(int number) const
 	unsigned bucket = number / this->bucketCount;
 	unsigned index = number % this->bucketCount;
 
-	uint8_t& currBucket = this->buckets[bucket];
 	uint8_t mask = 1;
 	mask <<= (this->bucketCount - index - 1) * 2;
-	bool isFirstUp = (currBucket & mask) == mask;
+	bool isFirstUp = (this->buckets[bucket] & mask) == mask;
 	mask <<= 1;
-	bool isSecondUp = (currBucket & mask) == mask;
+	bool isSecondUp = (this->buckets[bucket] & mask) == mask;
 
 	return isFirstUp * (1 << 0) + isSecondUp * (1 << 1);
 }
