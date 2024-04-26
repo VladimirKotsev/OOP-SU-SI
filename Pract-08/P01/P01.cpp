@@ -21,12 +21,5 @@ int main()
 	vector.insert(opt1 ,2);
 	vector.erase(0);
 	vector.erase(0);
-	vector.erase(0);
-	vector.erase(0);
-	vector.erase(0);
-	vector.erase(0);
 	std::cout << vector;
-
-	std::cout << vector.getCapacity();
-	std::cout << vector.getSize();
 }
