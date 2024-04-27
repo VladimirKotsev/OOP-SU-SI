@@ -13,11 +13,7 @@ private:
 	void copyFrom(const Battery& other);
 	void moveFrom(Battery&& other);
 public:
-	Battery(char* producer, char* description, unsigned ampHours, char* id) : CarPart(producer, description)
-	{
-		this->ampHours = ampHours;
-		setId(id);
-	}
+	Battery(const char* producer, const char* description, unsigned ampHours, char* id);
 
 	Battery(const Battery& other);
 	Battery(Battery&& other) noexcept;

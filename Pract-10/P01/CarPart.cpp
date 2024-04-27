@@ -3,22 +3,22 @@
 
 unsigned CarPart::counter = 1;
 
-void CarPart::setProducer(char* producer)
+void CarPart::setProducer(const char* producer)
 {
 	if (producer == nullptr)
 		throw std::invalid_argument("Invalid car part producer!");
 
 	size_t size = strlen(producer);
-	this->producer = new char[size];
+	this->producer = new char[size + 1];
 	strcpy(this->producer, producer);
 }
-void CarPart::setDescription(char* description)
+void CarPart::setDescription(const char* description)
 {
 	if (description == nullptr)
 		throw std::invalid_argument("Invalid car part description!");
 
 	size_t size = strlen(description);
-	this->description = new char[size];
+	this->description = new char[size + 1];
 	strcpy(this->description, description);
 }
 
@@ -51,7 +51,7 @@ void CarPart::moveFrom(CarPart&& other)
 	other.id = 0;
 }
 
-CarPart::CarPart(char* producer, char* description)
+CarPart::CarPart(const char* producer, const char* description)
 {
 	id = counter;
 	setProducer(producer);
@@ -98,6 +98,6 @@ CarPart::~CarPart()
 
 std::ostream& operator<<(std::ostream& os, const CarPart& carPart)
 {
-	return os << '(' << carPart.id << ')' << "by" << carPart.producer << '–' << carPart.description << ' ';
+	return os << '(' << carPart.id << ')' << " by " << carPart.producer << " - " << carPart.description << ' ';
 }
 

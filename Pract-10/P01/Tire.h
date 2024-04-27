@@ -12,13 +12,7 @@ private:
 	void setSidewallWidth(unsigned width);
 	void setSize(unsigned size);
 public:
-	Tire(char* producer, char* description, unsigned width, unsigned sidewallWidth, unsigned size) 
-		: CarPart(producer, description)
-	{
-		setWidth(width);
-		setSidewallWidth(sidewallWidth);
-		setSize(size);
-	}
+	Tire(const char* producer, const char* description, unsigned width, unsigned sidewallWidth, unsigned size);
 
 	friend std::ostream& operator<<(std::ostream& os, const Tire& tire);
 };

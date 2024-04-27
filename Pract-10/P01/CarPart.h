@@ -9,15 +9,15 @@ private:
 	char* producer = nullptr;
 	char* description = nullptr;
 
-	void setProducer(char* producer);
-	void setDescription(char* producer);
+	void setProducer(const char* producer);
+	void setDescription(const char* producer);
 
 	void free();
 	void copyFrom(const CarPart& other);
 	void moveFrom(CarPart&& other);
 
 public:
-	CarPart(char* producer, char* description);
+	CarPart(const char* producer, const char* description);
 
 	CarPart(const CarPart& other);
 	CarPart(CarPart&& other) noexcept;

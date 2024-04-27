@@ -24,6 +24,14 @@ void Tire::setSize(unsigned size)
 	this->size = size;
 }
 
+Tire::Tire(const char* producer, const char* description, unsigned width, unsigned sidewallWidth, unsigned size)
+	: CarPart(producer, description)
+{
+	setWidth(width);
+	setSidewallWidth(sidewallWidth);
+	setSize(size);
+}
+
 std::ostream& operator<<(std::ostream& os, const Tire& tire)
 {
 	os << (CarPart&)tire;

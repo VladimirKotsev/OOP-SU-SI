@@ -32,6 +32,12 @@ void Battery::moveFrom(Battery&& other)
 	other.ampHours = 0;
 }
 
+Battery::Battery(const char* producer, const char* description, unsigned ampHours, char* id)
+	: CarPart(producer, description)
+{
+	this->ampHours = ampHours;
+	setId(id);
+}
 Battery::Battery(const Battery& other) : CarPart(other)
 {
 	copyFrom(other);

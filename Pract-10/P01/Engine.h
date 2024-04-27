@@ -7,7 +7,9 @@ private:
 	unsigned horsePower = 0;
 
 public:
-	Engine(char* producer, char* description, unsigned horsePower);
+	Engine(const char* producer, const char* description, unsigned horsePower);
+
+	unsigned getHorsePower() const;
 
 	friend std::ostream& operator<<(std::ostream& os, const Engine& engine);
 };

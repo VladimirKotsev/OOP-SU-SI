@@ -1,9 +1,14 @@
 #include "Engine.h"
 
-Engine::Engine(char* producer, char* description, unsigned horsePower) 
+Engine::Engine(const char* producer, const char* description, unsigned horsePower)
 	: CarPart(producer, description)
 {
 	this->horsePower = horsePower;
+}
+
+unsigned Engine::getHorsePower() const
+{
+	return this->horsePower;
 }
 
 std::ostream& operator<<(std::ostream& os, const Engine& engine)
